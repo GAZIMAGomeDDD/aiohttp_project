@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>{{ title }}</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">
+
+
+    <link href="{{ static('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+</head>
+<body class="text-center">
+
+<div class="container">
+    <div class="col-md-6 mx-auto my-3">
+        <form class="form-signin" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ token }}"/>
+            <h1 class="h3 mb-3 font-weight-normal">Пожалуйста войдите</h1>
+            <label for="inputUsername" class="sr-only">Имя пользователя</label>
+            <input type="text" id="inputUsername" name="username" class="form-control my-3" placeholder="Имя пользователя"
+                   required
+                   autofocus>
+            {% if form.username.errors %}
+            {{ messages.error(form.username.errors[0]) }}
+            {% endif %}
+
+            <label for="inputPassword" class="sr-only">Пароль</label>
+            <input type="password" name="password" id="inputPassword" class="form-control my-3" placeholder="Пароль"
+                   required>
+            {% if form.password.errors %}
+            {{ messages.error(form.password.errors[0]) }}
+            {% endif %}
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+        </form>
+    </div>
+</div>
+<script src="{{ static('/js/jquery.slim.min.js') }}"></script>
+<script src="{{ static('/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+
+</body>
+</html>

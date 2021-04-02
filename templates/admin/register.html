@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>{{ title }}</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">
+    <link href="{{ static('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <style type="text/css">
+        .example-2 .btn-tertiary {
+            color: #555;
+            padding: 0;
+            line-height: 40px;
+            width: 515px;
+            margin: auto;
+            display: block;
+            border: 1px solid #555
+        }
+
+        .example-2 .btn-tertiary:hover, .example-2 .btn-tertiary:focus {
+            color: #888;
+            border-color: #888
+        }
+
+        .example-2 .input-file {
+            width: .1px;
+            height: .1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1
+        }
+
+        .example-2 .input-file + .js-labelFile {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0 10px;
+            cursor: pointer
+        }
+
+        .example-2 .input-file + .js-labelFile .icon:before {
+            content: "\f093"
+        }
+
+        .example-2 .input-file + .js-labelFile.has-file .icon:before {
+            content: "\f00c";
+            color: #5AAC7B
+        }
+    </style>
+</head>
+<body class="text-center">
+<div class="container">
+    <div class="col-md-6 mx-auto my-5">
+        <form class="form-signin" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf_token" value="{{ token }}"/>
+            <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+            <label for="inputUsername" class="sr-only">Имя пользователя</label>
+            <input type="text" id="inputUsername" name="username" class="form-control my-3"
+                   placeholder="Имя пользователя"
+                   required
+                   autofocus>
+            {% if form.username.errors %}
+            {{ messages.error(form.username.errors[0]) }}
+            {% endif %}
+            {% if error %}
+            {{ messages.error(error) }}
+            {% endif %}
+            {% if form.email.errors %}
+            {{ messages.error(form.email.errors[0]) }}
+            {% endif %}
+            <label for="inputEmailname" class="sr-only">Email</label>
+            <input type="email" id="inputEmailname" name="email" class="form-control my-3"
+                   placeholder="Email"
+                   required
+                   autofocus>
+            <div class="example-2 my-3">
+                <div class="form-group">
+                    <input type="file" name="file" id="file" class="input-file"
+                           accept="file/png, file/jpeg">
+                    <label for="file" class="btn btn-tertiary js-labelFile">
+                        <i class="icon fa fa-check"></i>
+                        <span class="js-fileName">Загрузить аватарку</span>
+                    </label>
+                </div>
+            </div>
+            {% if form.file.errors %}
+            {{ messages.error(form.file.errors[0]) }}
+            {% endif %}
+            <label for="inputPassword" class="sr-only">Пароль</label>
+            <input type="password" name="password" id="inputPassword" class="form-control my-3" placeholder="Пароль"
+                   required>
+            <label for="inputPassword2" class="sr-only">Введите пароль заново</label>
+            <input type="password" name="password2" id="inputPassword2" class="form-control my-3"
+                   placeholder="Введите пароль заново"
+                   required>
+            {% if form.password2.errors %}
+            {{ messages.error(form.password2.errors[0]) }}
+            {% endif %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+        </form>
+    </div>
+</div>
+<script src="{{ static('/js/jquery.slim.min.js') }}"></script>
+<script src="{{ static('/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script type="text/javascript">
+    (function () {
+
+        'use strict';
+
+        $('.input-file').each(function () {
+            let $input = $(this),
+                $label = $input.next('.js-labelFile'),
+                labelVal = $label.html();
+
+            $input.on('change', function (element) {
+                let fileName = '';
+                if (element.target.value) fileName = element.target.value.split('\\').pop();
+                fileName ? $label.addClass('has-file').find('.js-fileName').html(fileName) : $label.removeClass('has-file').html(labelVal);
+            });
+        });
+
+    })();
+</script>
+</body>
+</html>
+</html>

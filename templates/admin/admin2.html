@@ -1,0 +1,82 @@
+{% extends "admin/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+
+<div class="container" id="main">
+    <div class="row">
+        <div class="col-md-3 my-3">
+            <div class="list-group">
+                <a href="{{ url('admin_users') }}" class="list-group-item list-group-item-action">Пользователи</a>
+                <a href="{{ url('admin_posts') }}" class="list-group-item list-group-item-action">Посты</a>
+            </div>
+        </div>
+        <div class="col-md-9 my-3">
+            <table class="table">
+                <thead class="thead-dark">
+                {% if users %}
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Аватарка</th>
+                    <th scope="col">Изменить</th>
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Заглавие</th>
+                    <th scope="col">Изменить</th>
+                </tr>
+                {% endif %}
+                </thead>
+                <tbody>
+                {% if users %}
+                {% for user in objects_list %}
+                <tr>
+                    <th scope="row">{{user['id']}}</th>
+                    <td>{{user['name']}}</td>
+                    <td>{{user['email']}}</td>
+                    <td><img src="{{ static(user['avatar']) }}" width="60"></td>
+                    <td><a href="#" class="btn btn-primary" tabindex="-1" role="button"
+                           aria-disabled="true">Изменить</a></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                {% for post in objects_list %}
+                <tr>
+                    <th scope="row">{{post['id']}}</th>
+                    <td>{{post['title']}}</td>
+                    <td><a href="{{ url('edit_post', key=post['id']) }}" class="btn btn-primary" tabindex="-1" role="button"
+                           aria-disabled="true">Изменить</a></td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+            {% if objects_list %}
+            <div class="row my-3">
+                <div class="col">
+                    <nav aria-label="Page navigation example">
+                        <div class="pagination">
+                    <span class="step-links">
+                        {% if objects_list.previous_page %}
+                            <a href="?page={{ objects_list.first_page }}">&laquo; Первая</a>
+                            <a href="?page={{ objects_list.previous_page }}">Предыдущая</a>
+                        {% endif %}
+                            <span class="current">
+                                Страница {{ objects_list.page }} из {{ objects_list.page_count }}.
+                            </span>
+                        {% if objects_list.next_page %}
+                            <a href="?page={{ objects_list.next_page }}">Следующая</a>
+                            <a href="?page={{ objects_list.last_page }}">Последняя &raquo;</a>
+                        {% endif %}
+                    </span>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
